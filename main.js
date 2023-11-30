@@ -199,7 +199,7 @@ function preprocess(imgData) {
         let tensor = tf.browser.fromPixels(imgData, numChannels = 1)
         
         //resize 
-        const resized = tf.image.resizeBilinear(tensor, [28, 28]).toFloat()
+        const resized = tf.image.resizeBilinear(tensor, [56, 56]).toFloat()
         
         //normalize 
         const offset = tf.scalar(255.0);
@@ -222,7 +222,7 @@ async function start(cur_mode) {
     model = await tf.loadLayersModel('model/model.json')
     
     //warm up 
-    model.predict(tf.zeros([1, 28, 28, 1]))
+    model.predict(tf.zeros([1, 56, 56, 1]))
     
     //allow drawing on the canvas 
     allowDrawing()
@@ -236,10 +236,7 @@ allow drawing on canvas
 */
 function allowDrawing() {
     canvas.isDrawingMode = 1;
-    if (mode == 'en')
-        document.getElementById('status').innerHTML = 'Model Loaded';
-    else
-        document.getElementById('status').innerHTML = 'تم التحميل';
+    document.getElementById('status').innerHTML = 'Model Loaded';
     $('button').prop('disabled', false);
     var slider = document.getElementById('myRange');
     slider.oninput = function() {
