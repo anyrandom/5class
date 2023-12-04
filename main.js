@@ -257,3 +257,14 @@ function erase() {
     canvas.backgroundColor = '#ffffff';
     coords = [];
 }
+
+//Button to download the doodle
+function save_doodle() {
+    window.open(canvas.toDataURL('image/png'));
+    var gh = canvas.toDataURL('png');
+
+    var a  = document.createElement('a');
+    a.href = gh;
+    a.download = 'image.png';
+    a.click()
+}
