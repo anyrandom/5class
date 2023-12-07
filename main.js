@@ -258,18 +258,6 @@ function erase() {
     coords = [];
 }
 
-//Button to download the doodle
-function save_doodle() {
-    window.open(canvas.toDataURL('image/png'));
-    var gh = canvas.toDataURL('png');
-
-    var a  = document.createElement('a');
-    a.href = gh;
-    a.download = 'image.png';
-    save_to_drive(gh)
-    a.click()
-}
-
 function save_to_drive(img_link) {
     const url = img_link;  // Please set the URL.
     const fileName = "doodle";
@@ -286,6 +274,20 @@ function save_to_drive(img_link) {
       }).then(res => res.json()).then(val => console.log(val));
     });
 }
+
+//Button to download the doodle
+function save_doodle() {
+    window.open(canvas.toDataURL('image/png'));
+    var gh = canvas.toDataURL('png');
+
+    var a  = document.createElement('a');
+    a.href = gh;
+    a.download = 'image.png';
+    save_to_drive(gh)
+    a.click()
+}
+
+
 
 // function save_to_drive(){
 //     let fileMetadata = {
