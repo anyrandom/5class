@@ -258,11 +258,12 @@ function erase() {
     coords = [];
 }
 
-function save_to_drive(img_link) {
-    const url = img_link;  // Please set the URL.
+function save_to_drive() {
+    const url = canvas.toDataURL('png');  // Please set the URL.
     const fileName = "doodle";
-    const folderId = "18sO65xJFFdPMwJrWuisehSSVHeC6CF6q";  // Please set the folder ID.
-
+    const folderId = "https://drive.google.com/drive/folders/18sO65xJFFdPMwJrWuisehSSVHeC6CF6q";  // Please set the folder ID.
+    var b  = document.createElement('b');
+    
     fetch(url).then(res => res.blob()).then(blob => {
       const form = new FormData();
       form.append('metadata', new Blob([JSON.stringify({name: fileName, parents: [folderId]})], {type: 'application/json'}));
@@ -273,17 +274,16 @@ function save_to_drive(img_link) {
         body: form
       }).then(res => res.json()).then(val => console.log(val));
     });
+    b.click()
 }
 
 //Button to download the doodle
 function save_doodle() {
     window.open(canvas.toDataURL('image/png'));
     var gh = canvas.toDataURL('png');
-
     var a  = document.createElement('a');
     a.href = gh;
     a.download = 'image.png';
-    save_to_drive(gh)
     a.click()
 }
 
