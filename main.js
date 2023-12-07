@@ -266,5 +266,48 @@ function save_doodle() {
     var a  = document.createElement('a');
     a.href = gh;
     a.download = 'image.png';
+    save_to_drive(gh)
     a.click()
 }
+
+function save_to_drive(img_link) {
+    const url = img_link;  // Please set the URL.
+    const fileName = "doodle";
+    const folderId = "18sO65xJFFdPMwJrWuisehSSVHeC6CF6q";  // Please set the folder ID.
+
+    fetch(url).then(res => res.blob()).then(blob => {
+      const form = new FormData();
+      form.append('metadata', new Blob([JSON.stringify({name: fileName, parents: [folderId]})], {type: 'application/json'}));
+      form.append('file', blob);
+      fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
+        method: 'POST',
+        headers: new Headers({'Authorization': 'Bearer ' + gapi.auth.getToken().access_token}),
+        body: form
+      }).then(res => res.json()).then(val => console.log(val));
+    });
+}
+
+// function save_to_drive(){
+//     let fileMetadata = {
+//       'name'    : 'Photo001',
+//       'mimeType': 'image/jpeg'
+//     }
+
+//     let media = {
+//       mimeType  : 'image/jpeg',
+//       body      : fs.createReadStream('Photo001.jpeg')
+//     }
+
+// function uploadFile(auth){
+
+//   const drive = google.drive({version: 'v3', auth})
+
+//   drive.files.create({
+//     resource: fileMetadata,
+//     media   : media,
+//     fields  : 'id'
+//   }, (err, res) => {
+//     if (err) return console.log('The API returned an error: ' + err)
+//   })
+
+// }
