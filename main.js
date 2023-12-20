@@ -44,7 +44,7 @@ function setTable(top5, probs) {
         prob.innerHTML = Math.round(probs[i] * 100)
     }
     //create the pie 
-    createPie(".pieID.legend", ".pieID.pie");
+    // createPie(".pieID.legend", ".pieID.pie");
 
 }
 
@@ -118,14 +118,14 @@ function getFrame() {
         const pred = model.predict(preprocess(imgData)).dataSync()
 
         //find the top 1 prediction 
-        // const indices = findIndicesOfMax(pred, 1)
-        // const probs = findTopValues(pred, 1)
-        // const names = getClassNames(indices)
+        const indices = findIndicesOfMax(pred, 1)
+        const probs = findTopValues(pred, 1)
+        const names = getClassNames(indices)
         
         // //find the top 5 predictions 
-        const indices = findIndicesOfMax(pred, 5)
-        const probs = findTopValues(pred, 5)
-        const names = getClassNames(indices)
+        // const indices = findIndicesOfMax(pred, 5)
+        // const probs = findTopValues(pred, 5)
+        // const names = getClassNames(indices)
 
         //set the table 
         setTable(names, probs)
